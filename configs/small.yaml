@@ -1,3 +1,7 @@
+meta:
+  name: "Small"
+  description: "Compact 6-layer GPT for quick experiments on a single consumer GPU."
+
 tokenizer:
   vocab_size: 32000
   min_freq: 1
