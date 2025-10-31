@@ -25,13 +25,16 @@ pip install -r requirements.txt
 # Put one or more .txt files into data/raw/
 
 # 3) prepare data (train tokenizer + tokenized dataset)
-python scripts/prepare_data.py --config configs/small.yaml
+python prepare_data.py --config small
 
 # 4) train
-python train.py --config configs/small.yaml
+python train.py --config small
+
+# (optional) do everything in one go
+python scripts/run_full.py --config small
 
 # 5) sample
-python scripts/sample.py --config configs/small.yaml --prompt "Once upon a time"
+python scripts/sample.py --config small --prompt "Once upon a time"
 ```
 
 ### Hardware
@@ -47,12 +50,14 @@ Runs on CPU or GPU. If CUDA is available, it uses **automatic mixed precision**.
 
 ## Configs
 
-Edit the YAML in `configs/*.yaml`. Key knobs:
+Run any of the entry points without `--config` to interactively pick from the presets in `configs/`.
+Each YAML includes a short description under the `meta` section. Key knobs remain the same:
 - `tokenizer.vocab_size`: default 32_000
 - `model.n_layer`, `model.n_head`, `model.n_embd`, `model.block_size`
 - `train.batch_size`, `train.max_steps`, `train.lr`, `train.weight_decay`, `train.grad_clip`
+- `train.grad_accum_steps` for gradient accumulation on larger models
 - `data.train_split` (e.g., 0.9)
-- `data.min_freq` to drop ultra-rare chars before BPE (optional)
+- `tokenizer.min_freq` to drop ultra-rare chars before BPE
 
 ---
 
@@ -66,7 +71,7 @@ For very small datasets, reduce `vocab_size` and `block_size`.
 ## Sampling
 
 ```bash
-python scripts/sample.py --config configs/small.yaml --prompt "The function returns" --max_new_tokens 200 --temperature 0.8 --top_k 200
+python scripts/sample.py --config small --prompt "The function returns" --max_new_tokens 200 --temperature 0.8 --top_k 200
 ```
 
 ---

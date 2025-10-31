@@ -1,0 +1,35 @@
+meta:
+  name: "Tiny"
+  description: "Ultra-small 2-layer GPT for quick CPU smoke tests and debugging."
+
+tokenizer:
+  vocab_size: 8192
+  min_freq: 1
+
+data:
+  train_split: 0.9
+  seed: 1337
+
+model:
+  n_layer: 2
+  n_head: 4
+  n_embd: 256
+  block_size: 128
+  dropout: 0.1
+
+train:
+  batch_size: 32
+  max_steps: 1000
+  lr: 5e-4
+  weight_decay: 0.1
+  betas: [0.9, 0.99]
+  grad_clip: 1.0
+  warmup_steps: 50
+  ckpt_interval: 250
+  log_interval: 50
+  amp: false
+
+io:
+  out_dir: checkpoints
+  processed_dir: data/processed
+  raw_dir: data/raw
