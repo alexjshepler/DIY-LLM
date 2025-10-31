@@ -1,0 +1,31 @@
+tokenizer:
+  vocab_size: 32000
+  min_freq: 1
+
+data:
+  train_split: 0.9
+  seed: 1337
+
+model:
+  n_layer: 6
+  n_head: 6
+  n_embd: 384
+  block_size: 256
+  dropout: 0.1
+
+train:
+  batch_size: 64
+  max_steps: 5000
+  lr: 3e-4
+  weight_decay: 0.1
+  betas: [0.9, 0.95]
+  grad_clip: 1.0
+  warmup_steps: 100
+  ckpt_interval: 500
+  log_interval: 50
+  amp: true
+
+io:
+  out_dir: checkpoints
+  processed_dir: data/processed
+  raw_dir: data/raw
